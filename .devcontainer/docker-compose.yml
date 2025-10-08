@@ -1,0 +1,63 @@
+# Project name for organizing all DevBench containers in Docker Desktop
+# This creates the dev-bench project with python_bench, java_bench, etc.
+name: dev-bench
+
+services:
+  python_bench:
+    env_file: .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USERNAME: brett
+        USER_UID: 1000
+        USER_GID: 1000
+        DEBUG: false
+    
+    container_name: python_bench
+    
+    # Mount your workspace
+    volumes:
+      - ../:/workspace:cached
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.gitconfig:/home/brett/.gitconfig:ro
+      - ~/.ssh:/home/brett/.ssh:ro
+    
+    # Forward common Python ports
+    ports:
+      - "5006:5000"  # Flask default
+      - "8006:8000"  # Django/FastAPI default  
+      - "8086:8080"  # Alternative web server
+      - "8886:8888"  # Jupyter Lab
+      - "8506:8501"  # Streamlit default
+      - "3006:3000"  # Alternative frontend
+      - "9006:9000"  # Alternative port
+    
+    # Keep container running
+    command: sleep infinity
+    
+    # Allow privileged for Docker
+    privileged: true
+    
+    # Set working directory
+    working_dir: /workspace
+    
+    # Set user
+    user: "1000:1000"
+    
+    # Environment variables
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - PYTHONPATH=/workspace/src
+      - JUPYTER_ENABLE_LAB=yes
+      - JUPYTER_TOKEN=
+    
+    # Connect to shared DevBench network
+    networks:
+      - dev_bench
+
+# Shared network for all DevBench containers
+networks:
+  dev_bench:
+    name: dev_bench
+    driver: bridge
