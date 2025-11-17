@@ -1,0 +1,52 @@
+# Docker Compose Override File Example
+# ===========================================
+# This file enables AI coding assistants (Codex, Claude Code, Gemini) to authenticate
+# automatically inside your devcontainer.
+#
+# SETUP INSTRUCTIONS:
+# 1. Copy this file to: docker-compose.override.yml
+#    cp docker-compose.override.example.yml docker-compose.override.yml
+#
+# 2. The docker-compose.override.yml file is gitignored and will not be committed
+#
+# 3. Uncomment the volume mounts below for the AI tools you use
+#
+# 4. Restart your devcontainer for changes to take effect
+#
+# For detailed setup instructions, see: AI_SETUP.md
+
+services:
+  # Note: Replace 'app' with your actual service name from docker-compose.yml
+  # Common service names: app, web, dev, service, etc.
+  python_bench:
+    volumes:
+      # ========================================
+      # AI Coding Assistant Configurations
+      # ========================================
+      # Uncomment the lines below to enable auto-login for AI assistants
+      
+      # OpenAI Codex CLI Authentication
+      # Required for: VS Code Codex extension, OpenAI CLI tools
+      # Location: ~/.codex/ contains authentication tokens
+      # - ~/.codex:/home/${USER:-vscode}/.codex:cached
+      
+      # Anthropic Claude Code CLI Authentication  
+      # Required for: VS Code Claude Code extension, Claude CLI tools
+      # Location: ~/.claude/ contains API keys and session data
+      # - ~/.claude:/home/${USER:-vscode}/.claude:cached
+      
+      # Google Gemini CLI Authentication
+      # Required for: VS Code Gemini extension, Gemini CLI tools
+      # Location: ~/.gemini/ contains authentication credentials
+      # - ~/.gemini:/home/${USER:-vscode}/.gemini:cached
+
+      # ========================================
+      # Additional Personal Configurations (Optional)
+      # ========================================
+      # You can add other personal mounts here as needed
+      
+      # Example: Additional SSH keys
+      # - ~/.ssh/id_custom:/home/${USER:-vscode}/.ssh/id_custom:ro
+      
+      # Example: Custom shell aliases
+      # - ~/.bash_aliases:/home/${USER:-vscode}/.bash_aliases:ro
