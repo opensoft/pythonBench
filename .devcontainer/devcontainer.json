@@ -1,6 +1,9 @@
 {
 	"name": "Python DevBench Container - The Monster",
-	"dockerComposeFile": "docker-compose.yml",
+	"dockerComposeFile": [
+    "docker-compose.yml",
+    "docker-compose.override.yml"
+  ],
 	"service": "python_bench",
 	"workspaceFolder": "/workspace",
 	
