@@ -41,6 +41,31 @@ services:
       # - ~/.gemini:/home/${USER:-vscode}/.gemini:cached
 
       # ========================================
+      # Shell & Terminal Configurations (Optional)
+      # ========================================
+      # Uncomment to use your personal shell config inside the container
+      
+      # Zsh configuration
+      # - ~/.zshrc:/home/${USER:-vscode}/.zshrc:ro
+      # - ~/.oh-my-zsh:/home/${USER:-vscode}/.oh-my-zsh:ro
+      # - ~/.p10k.zsh:/home/${USER:-vscode}/.p10k.zsh:ro
+      
+      # Bash configuration
+      # - ~/.bashrc:/home/${USER:-vscode}/.bashrc:ro
+
+      # ========================================
+      # SSH Keys & Configuration (Optional)
+      # ========================================
+      # Uncomment the SSH keys you have configured
+      
+      # - ~/.ssh/config:/home/${USER:-vscode}/.ssh/config:ro
+      # - ~/.ssh/id_ed25519:/home/${USER:-vscode}/.ssh/id_ed25519:ro
+      # - ~/.ssh/id_ed25519.pub:/home/${USER:-vscode}/.ssh/id_ed25519.pub:ro
+      # - ~/.ssh/id_rsa_ado:/home/${USER:-vscode}/.ssh/id_rsa_ado:ro
+      # - ~/.ssh/id_rsa_ado.pub:/home/${USER:-vscode}/.ssh/id_rsa_ado.pub:ro
+      # - ~/.ssh/known_hosts:/home/${USER:-vscode}/.ssh/known_hosts:ro
+
+      # ========================================
       # Additional Personal Configurations (Optional)
       # ========================================
       # You can add other personal mounts here as needed
