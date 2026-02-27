@@ -1,0 +1,29 @@
+# Layer 2: Python Bench Image
+ARG BASE_IMAGE=devbench-base:brett
+FROM ${BASE_IMAGE}
+
+LABEL layer="2"
+LABEL layer.name="python-bench"
+LABEL layer.version="1.0.0"
+LABEL bench.type="python"
+
+ARG USERNAME=brett
+USER root
+
+# Install Python 3.12 and tools
+RUN apt-get update && apt-get install -y \
+    python3.12 \
+    python3.12-venv \
+    python3.12-dev \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install pipx, poetry, and common Python tools
+RUN python3 -m pip install --break-system-packages \
+    pipx poetry black flake8 mypy pytest ipython jupyter \
+    django flask fastapi uvicorn pandas numpy
+
+USER $USERNAME
+RUN echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+WORKDIR /workspace
+CMD ["sleep", "infinity"]

@@ -1,0 +1,7 @@
+{
+  "name": "Python Bench",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "python_bench",
+  "workspaceFolder": "/workspace",
+  "remoteUser": "brett"
+}
