@@ -1,13 +1,14 @@
 # Layer 2: Python Bench Image
-ARG BASE_IMAGE=devbench-base:brett
-FROM ${BASE_IMAGE}
+# USER-AGNOSTIC: No user creation — Layer 3 handles user setup
+FROM devbench-base:latest
 
 LABEL layer="2"
 LABEL layer.name="python-bench"
-LABEL layer.version="1.0.0"
+LABEL layer.version="2.0.0"
+LABEL layer.description="Python development tools (user-agnostic)"
 LABEL bench.type="python"
 
-ARG USERNAME=brett
+# Everything runs as root
 USER root
 
 # Install Python 3.12 and tools
@@ -23,7 +24,8 @@ RUN python3 -m pip install --break-system-packages \
     pipx poetry black flake8 mypy pytest ipython jupyter \
     django flask fastapi uvicorn pandas numpy
 
-USER $USERNAME
-RUN echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
-WORKDIR /workspace
+# Add Python path to /etc/skel/.zshrc
+RUN echo 'export PATH="$HOME/.local/bin:$PATH"' >> /etc/skel/.zshrc
+
+# Default command
 CMD ["sleep", "infinity"]
